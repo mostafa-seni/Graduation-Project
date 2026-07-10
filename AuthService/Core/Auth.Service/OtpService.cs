@@ -1,6 +1,8 @@
 ﻿using Auth.Domain.Contractts;
 using Auth.ServiceAbstraction;
 using Auth.Shared.DTOS.OTP;
+using CommanLib.EventNotification.SmsEvent;
+using MassTransit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Auth.Service
 {
-    public class OtpService(IOtpRepository otpRepository,ISmsService smsService) : IOTPService
+    public class OtpService(IOtpRepository otpRepository, IPublishEndpoint  publish) : IOTPService
     {
         public string GenerateOtpAsync()
         {
@@ -32,7 +34,8 @@ namespace Auth.Service
                 await otpRepository.RemoveOtpAsync(phoneNumber);
             
             await otpRepository.SaveOtpAsync(phoneNumber, otp);
-            await smsService.SendAsync(phoneNumber, $"Your OTP code is: {otp}");
+            //await smsService.SendAsync(phoneNumber, $"Your OTP code is: {otp}");
+            await publish.Publish(new SendOtpEvent(phoneNumber, otp));
             return new OTPResponse(
                success: true,
                message: "OTP sent successfully"

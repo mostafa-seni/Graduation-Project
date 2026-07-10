@@ -1,5 +1,6 @@
 ﻿using Auth.Domain.Contractts;
 using Auth.ServiceAbstraction;
+using MassTransit;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,9 +18,17 @@ namespace Auth.Service.DependanceInjection
         {
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IOTPService, OtpService>();
-            services.AddScoped<ISmsService, SmsService>();
-            services.AddScoped<IEmailSender, EmailSender>();
+            //services.AddScoped<ISmsService, SmsService>();
+            //services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddMassTransit(x=>x.UsingRabbitMq((context, cfg) =>
+            {
+                cfg.Host("localhost", "/", h =>
+                {
+                    h.Username("guest");
+                    h.Password("guest");
+                });
+            }));
 
 
 

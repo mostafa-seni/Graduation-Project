@@ -47,7 +47,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.Presentation API", "Us
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.shared", "UserService\User.shared\User.shared.csproj", "{1279D145-0BCA-4E1C-AD46-DCDD861F3AF8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoummunityService", "CoummunityService", "{38BDC88F-5508-4163-930C-50FCE09712EC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NotificationService", "NotificationService", "{38BDC88F-5508-4163-930C-50FCE09712EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService", "NotificationService\NotificationService\NotificationService.csproj", "{53CAF58D-5FDA-4240-ABE2-75F2F3DF294B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification.Service", "NotificationService\Notification.Service\Notification.Service.csproj", "{4CDE721F-47CC-4D58-99B5-E15880830828}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification.ServicesAbstract", "NotificationService\Notification.ServicesAbstract\Notification.ServicesAbstract.csproj", "{64047AA3-A63D-4D04-BDB5-0D241FCB8CAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification.Consumer", "NotificationService\Notification.Consumer\Notification.Consumer.csproj", "{28B48119-F8E9-4121-92C0-EDD36D2140AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification.Settings", "NotificationService\Notification.Settings\Notification.Settings.csproj", "{2ACB1112-B861-4ECF-AE67-796B62635A65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +125,26 @@ Global
 		{1279D145-0BCA-4E1C-AD46-DCDD861F3AF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1279D145-0BCA-4E1C-AD46-DCDD861F3AF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1279D145-0BCA-4E1C-AD46-DCDD861F3AF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53CAF58D-5FDA-4240-ABE2-75F2F3DF294B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53CAF58D-5FDA-4240-ABE2-75F2F3DF294B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53CAF58D-5FDA-4240-ABE2-75F2F3DF294B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53CAF58D-5FDA-4240-ABE2-75F2F3DF294B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CDE721F-47CC-4D58-99B5-E15880830828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CDE721F-47CC-4D58-99B5-E15880830828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CDE721F-47CC-4D58-99B5-E15880830828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CDE721F-47CC-4D58-99B5-E15880830828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64047AA3-A63D-4D04-BDB5-0D241FCB8CAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64047AA3-A63D-4D04-BDB5-0D241FCB8CAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64047AA3-A63D-4D04-BDB5-0D241FCB8CAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64047AA3-A63D-4D04-BDB5-0D241FCB8CAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28B48119-F8E9-4121-92C0-EDD36D2140AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28B48119-F8E9-4121-92C0-EDD36D2140AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28B48119-F8E9-4121-92C0-EDD36D2140AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28B48119-F8E9-4121-92C0-EDD36D2140AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ACB1112-B861-4ECF-AE67-796B62635A65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ACB1112-B861-4ECF-AE67-796B62635A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ACB1112-B861-4ECF-AE67-796B62635A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ACB1112-B861-4ECF-AE67-796B62635A65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -139,6 +169,11 @@ Global
 		{12D028DD-3276-4783-8BA6-7AC3E27E06D5} = {CBD26364-CBAA-44F4-9022-D6D26BB47E57}
 		{3D4F593D-9908-4F27-B946-000AB63A924A} = {CBD26364-CBAA-44F4-9022-D6D26BB47E57}
 		{1279D145-0BCA-4E1C-AD46-DCDD861F3AF8} = {6D865FD3-8DA8-4765-A321-4A9A0209BFB2}
+		{53CAF58D-5FDA-4240-ABE2-75F2F3DF294B} = {38BDC88F-5508-4163-930C-50FCE09712EC}
+		{4CDE721F-47CC-4D58-99B5-E15880830828} = {38BDC88F-5508-4163-930C-50FCE09712EC}
+		{64047AA3-A63D-4D04-BDB5-0D241FCB8CAE} = {38BDC88F-5508-4163-930C-50FCE09712EC}
+		{28B48119-F8E9-4121-92C0-EDD36D2140AF} = {38BDC88F-5508-4163-930C-50FCE09712EC}
+		{2ACB1112-B861-4ECF-AE67-796B62635A65} = {38BDC88F-5508-4163-930C-50FCE09712EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A91ABF6F-0405-4FDA-8572-E36B7430C967}

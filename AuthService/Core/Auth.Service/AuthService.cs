@@ -3,6 +3,9 @@ using Auth.Domain.Entities;
 using Auth.ServiceAbstraction;
 using Auth.Shared.DTOS.Auth;
 using Auth.Shared.DTOS.OTP;
+using CommanLib.EventNotification.EmailEvent;
+using MassTransit;
+using MassTransit.Transports;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.WebUtilities;
@@ -23,7 +26,7 @@ namespace Auth.Service
     UserManager<AppUser> userManager
     , IOTPService otpService
      , ITokenService tokenService
-        , IEmailService _emailsender) : IAuthService
+        , IPublishEndpoint publish) : IAuthService
     {
         public async Task ForgetPasswordasync(ForgetPassowrdDto passowrdDto)
         {
@@ -40,7 +43,7 @@ namespace Auth.Service
             };
             var callBack = QueryHelpers.AddQueryString(passowrdDto.ClinetUrl!, param);
             var message = new Message(user.Email, "Reset Password", callBack,null);
-            await _emailsender.SendEmailAsync(user.Email!, "Reset Password", callBack, null!);
+            await publish.Publish(new ResetPasswordEvent( user.Email, callBack));
         }
 
         public async Task ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
@@ -74,13 +77,22 @@ namespace Auth.Service
         {
             
             var user = await userManager.FindByEmailAsync(loginWithEmail.Email);
+
             if (user == null)
                 throw new Exception("invalid email or password");
-            var result = await userManager.CheckPasswordAsync(user, loginWithEmail.Password);
-            if (!result)
+
+            var isPasswordValid = await userManager.CheckPasswordAsync(user, loginWithEmail.Password);
+
+            if (!isPasswordValid)
                 throw new Exception("invalid email or password");
+
+            if (!(user.Status==UserStatus.Approved))
+                throw new Exception("User is not approved");
+            
             var refreshtoken = await tokenService.CreateRefreshTokenAsync(user.Id);
+
             var accessToken = tokenService.GenerateAccessToken(user, await userManager.GetRolesAsync(user));
+
             return new LoginWithEmailResponse(
                 FulltName : user.FulltName, refreshToken: refreshtoken.Token,accessToken:accessToken ,email :user.Email
             );
@@ -94,11 +106,15 @@ namespace Auth.Service
 
         public async Task<OTPResponse> RegisterAsync(RegisterRequest registerRequest)
         {
-            var userExists = await userManager.Users.AnyAsync(x => x.PhoneNumber == registerRequest.PhoneNumber);
+            var existingUser = await userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == registerRequest.PhoneNumber || u.Email == registerRequest.email);
 
-            if (userExists)
+            if (existingUser == null)
             {
-                throw new Exception("User already exists");
+                if (existingUser.PhoneNumber == registerRequest.PhoneNumber)
+                    throw new Exception("Phone number is already registered.");
+
+                if (existingUser.Email == registerRequest.email)
+                    throw new Exception("Email is already registered.");
             }
 
             var user = new AppUser
@@ -107,6 +123,7 @@ namespace Auth.Service
                 UserName = registerRequest.FullName,
                 PhoneNumber = registerRequest.PhoneNumber,
                 Email = registerRequest.email,
+               
                 Address = new Address
                 {
                     Village = registerRequest.village,
@@ -116,7 +133,7 @@ namespace Auth.Service
             };
 
 
-            var result = await userManager.CreateAsync(user);
+            var result = await userManager.CreateAsync(user,registerRequest.password);
 
             if (!result.Succeeded)
             {
@@ -154,10 +171,10 @@ namespace Auth.Service
             var accesstoken = tokenService.GenerateAccessToken(user, roles);
 
             var userResponse = new UserResponse(
-             accesstoken: accesstoken,
-        refershtoken: refreshtoken.Token,
-         FullName: user.FulltName,
-        message: "OTP verified successfully"
+            accesstoken: accesstoken,
+            refershtoken: refreshtoken.Token,
+            FullName: user.FulltName,
+            message: "OTP verified successfully"
     );
 
             return userResponse;

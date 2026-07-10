@@ -25,7 +25,7 @@ namespace Auth_Services
 
             builder.Services.AddTokenService(builder.Configuration);
             builder.Services.AddServices();
-            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSetting"));
+            //builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSetting"));
 
             //builder.Services.AddTokenService(builder.Configuration);
 
