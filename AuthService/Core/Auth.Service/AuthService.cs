@@ -179,5 +179,45 @@ namespace Auth.Service
 
             return userResponse;
         }
+
+        public async Task CreateAccountExpert(RegisterRequest registerRequest)
+        {
+            var existingUser = await userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == registerRequest.PhoneNumber || u.Email == registerRequest.email);
+
+            if (existingUser == null)
+            {
+                if (existingUser.PhoneNumber == registerRequest.PhoneNumber)
+                    throw new Exception("Phone number is already registered.");
+
+                if (existingUser.Email == registerRequest.email)
+                    throw new Exception("Email is already registered.");
+            }
+            var user = new AppUser
+            {
+                FulltName = registerRequest.FullName,
+                UserName = registerRequest.FullName,
+                Status=UserStatus.Pending,
+                PhoneNumber = registerRequest.PhoneNumber,
+                Email = registerRequest.email,
+                Address = new Address
+                {
+                    Village = registerRequest.village,
+                    Region = registerRequest.Region
+                },
+                pictures = registerRequest.picture ?? string.Empty
+            };
+            var result = await userManager.CreateAsync(user, registerRequest.password);
+
+            if (!result.Succeeded)
+            {
+                throw new Exception("User creation failed");
+            }
+            await userManager.AddToRoleAsync(user, "Expert");
+
+
+
+
+
+        }
     }
 }

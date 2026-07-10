@@ -28,9 +28,9 @@ namespace Notification.Service
 
         public async Task SendEmailAsync(string toEmail, string subject, string body, IList<IFormFile> attachment = null)
         {
+            Console.WriteLine($"To Email: '{toEmail}'");
 
-
-        var email = new MimeMessage
+            var email = new MimeMessage
             {
                 Sender = MailboxAddress.Parse(_mailSettings.Email),
                 Subject = subject
