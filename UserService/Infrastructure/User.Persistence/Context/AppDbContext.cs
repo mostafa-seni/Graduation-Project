@@ -6,15 +6,12 @@ using User.Domain.Entities;
 
 namespace User.Persistence.Context
 {
-    internal class AppDbContext(DbContextOptions<AppDbContext> options)
-        : IdentityDbContext<AppUser, AppRole, Guid>(options)
+    internal class AppDbContext(DbContextOptions<AppDbContext> options):
+        IdentityDbContext<AppUser, AppRole, Guid>
+
     {
         
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            
-        }
+       
     }
 }
