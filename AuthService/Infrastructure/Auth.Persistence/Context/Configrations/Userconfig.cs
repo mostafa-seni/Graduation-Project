@@ -24,7 +24,6 @@ namespace Auth.Persistence.Context.Configrations
                 .HasMaxLength(255);
 
             builder.Property(x => x.Status)
-                 .HasConversion<string>()
                  .HasMaxLength(20)
                  .HasDefaultValue(UserStatus.Pending)
                  .IsRequired();

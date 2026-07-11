@@ -20,9 +20,7 @@ namespace User.Domain.Entities
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime LastUpdatedAt { get; set; }
-        public ICollection<UserPermission> UserPermissions { get; set; }
-           = new List<UserPermission>();
-
+       
         public ICollection<RefreshToken> RefreshTokens { get; set; }
             = new List<RefreshToken>();
 

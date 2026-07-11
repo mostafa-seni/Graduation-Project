@@ -7,7 +7,7 @@ using User.Domain.Entities;
 namespace User.Persistence.Context
 {
     internal class AppDbContext(DbContextOptions<AppDbContext> options):
-        IdentityDbContext<AppUser, AppRole, Guid>
+        IdentityDbContext<AppUser, AppRole, Guid>(options)
 
     {
         
