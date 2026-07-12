@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Reposrt.Shared\Report.Shared.csproj" />
+    <ProjectReference Include="..\Report.ServiceAbstraction\Report.ServiceAbstraction.csproj" />
   </ItemGroup>
 
 </Project>

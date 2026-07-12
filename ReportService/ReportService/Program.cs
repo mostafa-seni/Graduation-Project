@@ -1,5 +1,5 @@
 
-namespace ReposrtSevice
+namespace ReportService
 {
     public class Program
     {

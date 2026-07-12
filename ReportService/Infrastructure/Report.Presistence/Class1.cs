@@ -1,4 +1,4 @@
-﻿namespace Reposrt.ServiceAbstraction
+﻿namespace Report.Presistence
 {
     public class Class1
     {

@@ -1,4 +1,4 @@
-﻿namespace Report.Presntation
+﻿namespace Report.ServiceAbstraction
 {
     public class Class1
     {

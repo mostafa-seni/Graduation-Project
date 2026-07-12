@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Report.ServiceAbsraction\Report.ServiceAbsraction.csproj" />
-    <ProjectReference Include="..\Reposrt.Domain\Report.Domain.csproj" />
+    <ProjectReference Include="..\..\Report.Shared\Report.Shared.csproj" />
   </ItemGroup>
 
 </Project>

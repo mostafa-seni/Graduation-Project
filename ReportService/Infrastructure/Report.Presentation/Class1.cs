@@ -1,4 +1,4 @@
-﻿namespace Reposrt.Domain
+﻿namespace Report.Presentation
 {
     public class Class1
     {

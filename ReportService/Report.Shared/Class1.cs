@@ -1,4 +1,4 @@
-﻿namespace Reposrt.Shared
+﻿namespace Report.Shared
 {
     public class Class1
     {
